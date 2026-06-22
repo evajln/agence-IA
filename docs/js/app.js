@@ -894,30 +894,27 @@ async function sendMessage() {
 
   let messageContent = text;
 
-  // Si c'est le Traducteur et qu'il y a un lien YouTube, on récupère la transcription
+  // Si c'est le Traducteur et qu'il y a un lien YouTube, guider vers la transcription manuelle
   const youtubeUrl = currentAgent.id === 'traducteur' ? extractYoutubeUrl(text) : null;
   if (youtubeUrl) {
-    const loadingBubble = document.createElement('div');
-    loadingBubble.className = 'message agent';
-    loadingBubble.innerHTML = `
-      <div class="message-avatar" style="background:${currentAgent.colorBg}">${currentAgent.emoji}</div>
-      <div class="message-bubble">⏳ Je récupère la transcription YouTube...</div>
-    `;
-    container.appendChild(loadingBubble);
-    scrollBottom();
+    const videoIdMatch = youtubeUrl.match(/(?:v=|youtu\.be\/)([^&\s?#]+)/);
+    const videoId = videoIdMatch ? videoIdMatch[1] : null;
+    const transcriptLink = videoId
+      ? `https://www.youtube.com/watch?v=${videoId}`
+      : youtubeUrl;
 
-    try {
-      const transcript = await fetchTranscript(youtubeUrl);
-      loadingBubble.remove();
-      messageContent = `${text}\n\n[TRANSCRIPTION AUTOMATIQUE RÉCUPÉRÉE]\n${transcript}`;
-      addAgentBubble(currentAgent, `✅ Transcription récupérée (${transcript.split(' ').length} mots). Je traduis...`);
-    } catch (err) {
-      loadingBubble.remove();
-      addAgentBubble(currentAgent, `⚠️ Impossible de récupérer la transcription automatiquement : ${err.message}\n\nColle le texte de la vidéo directement et je m'en occupe.`);
-      sendBtn.disabled = false;
-      input.focus();
-      return;
-    }
+    addAgentBubble(currentAgent,
+      `🎬 J'ai bien reçu ton lien YouTube !\n\n` +
+      `YouTube ne me permet pas de récupérer la transcription automatiquement depuis un serveur. Voici comment l'obtenir en 30 secondes :\n\n` +
+      `**1.** Ouvre la vidéo → [Clique ici](${transcriptLink})\n` +
+      `**2.** Clique sur **"..."** sous la vidéo\n` +
+      `**3.** Clique sur **"Afficher la transcription"**\n` +
+      `**4.** Sélectionne tout le texte et colle-le ici\n\n` +
+      `Je m'occupe de la traduction dès que tu me l'envoies ! 🌍`
+    );
+    sendBtn.disabled = false;
+    input.focus();
+    return;
   }
 
   addMessageToSession(currentAgent.id, 'user', messageContent);
