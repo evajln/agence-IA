@@ -702,6 +702,7 @@ function openAgent(agentId) {
     btn.classList.toggle('active', btn.dataset.id === agentId)
   );
 
+  closeSidebar();
   document.getElementById('welcomeScreen').classList.add('hidden');
   document.getElementById('agentScreen').classList.remove('hidden');
 
@@ -929,6 +930,18 @@ function setupInput() {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   });
   document.getElementById('sendBtn').addEventListener('click', sendMessage);
+}
+
+// ── Menu mobile ────────────────────────────────────────────────────────────
+
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
 }
 
 // ── Retour accueil ─────────────────────────────────────────────────────────

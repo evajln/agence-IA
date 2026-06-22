@@ -325,3 +325,62 @@ textarea::placeholder { color: var(--text-muted); }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #DDD; border-radius: 4px; }
+
+/* ── Mobile topbar (caché sur desktop) ── */
+.mobile-topbar {
+  display: none; align-items: center; gap: 12px;
+  padding: 14px 16px; background: var(--white);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.mobile-title { font-size: 15px; font-weight: 600; color: var(--text); }
+.menu-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border: none; background: none;
+  cursor: pointer; font-size: 20px; color: var(--text);
+  border-radius: 8px; transition: background 0.15s;
+}
+.menu-btn:hover { background: var(--bg); }
+.sidebar-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45); z-index: 99;
+}
+.sidebar-overlay.open { display: block; }
+
+/* ── Responsive ── */
+@media (max-width: 720px) {
+  .sidebar {
+    position: fixed; left: -260px; top: 0; bottom: 0;
+    z-index: 100; width: 260px; min-width: 260px;
+    transition: left 0.25s ease;
+  }
+  .sidebar.open { left: 0; }
+  .mobile-topbar { display: flex; }
+
+  .welcome-screen { padding: 20px 16px; align-items: flex-start; }
+  .welcome-title { font-size: 22px; }
+  .welcome-subtitle { font-size: 14px; margin-bottom: 24px; }
+  .welcome-cards { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .welcome-card { padding: 14px; }
+  .welcome-card-name { font-size: 14px; }
+
+  #agentContent { padding: 20px 14px; }
+  .agent-hero { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+  .agent-hero-citation { padding-left: 0; border-left: none; border-top: 3px solid currentColor; padding-top: 10px; margin-top: 8px; }
+
+  .tabs { padding: 10px 12px; gap: 4px; }
+  .tab { padding: 6px 12px; font-size: 12px; }
+  .back-btn-top { font-size: 12px; }
+
+  .chat-messages { padding: 14px; gap: 14px; }
+  .message { max-width: 92%; }
+  .chat-footer { padding: 10px 12px 14px; }
+
+  .history-panel.open { width: 200px; }
+  .chat-topbar { padding: 8px 12px; }
+}
+
+@media (max-width: 420px) {
+  .welcome-cards { grid-template-columns: 1fr; }
+  .welcome-title { font-size: 20px; }
+  .agent-hero-name { font-size: 22px; }
+}
