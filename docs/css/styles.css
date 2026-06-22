@@ -253,6 +253,11 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 .history-item-btn:hover { background: #e8e8e8; color: #555; }
 .history-item-btn.delete:hover { background: #ffebee; color: #e53935; }
 .history-rename-input { width: 100%; font-family: var(--font); font-size: 12px; font-weight: 500; border: 1px solid #aaa; border-radius: 4px; padding: 1px 4px; outline: none; }
+.srt-block { margin: 12px 0; background: #f4f4f3; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; }
+.srt-preview { padding: 12px 14px; font-family: monospace; font-size: 12px; line-height: 1.6; color: #555; border-bottom: 1px solid #e0e0e0; margin: 0; white-space: pre-wrap; }
+.srt-download-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; background: #1A1A1A; color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; transition: background 0.15s; }
+.srt-download-btn:hover { background: #333; }
+
 .generated-image-wrap { margin: 10px 0; }
 .generated-image { width: 100%; max-width: 560px; border-radius: 10px; display: block; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
 .generated-image-caption { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
